@@ -13,8 +13,24 @@ class FoodClassModel(nn.Module):
             nn.MaxPool2d(kernel_size=2, stride=2)
         )
 
+        self.conv_block_2 = nn.Sequential(
+            nn.Conv2d(in_channels=hidden_units, out_channels=hidden_units, kernel_size=3, padding=0),
+            nn.ReLU(),
+            nn.Conv2d(in_channels=hidden_units, out_channels=hidden_units, kernel_size=3, padding=1), 
+            nn.ReLU(), 
+            nn.MaxPool2d(kernel_size=2, stride=2)
+        )
+
+        self.classifer = nn.Sequential(
+            nn.Flatten(), 
+            nn.Linear(in_features=hidden_units*13*13, out_features=output_shape)
+        )
 
     def forward(self, x: torch.Tensor):
         x = self.conv_block_1(x)
-        
+        x = self.conv_block_2(x)
+        x = self.classifer(x)
+        return x 
+
+
 
