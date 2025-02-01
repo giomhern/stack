@@ -1,7 +1,7 @@
 import torch
 from torch import nn
 
-class FoodClassModel(nn.Module):
+class BlockBlastModel(nn.Module):
     def __init__(self, input_shape: int, hidden_units: int, output_shape: int) -> None:
         super().__init__()
 
